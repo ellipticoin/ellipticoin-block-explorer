@@ -1,0 +1,106 @@
+header {
+  padding: 10px 0;
+  background-color: #0069ff;
+  display: flex;
+  flex-direction: row;
+}
+
+header img {
+  width: 80px;
+  padding: 0 12px;
+  margin: auto;
+}
+
+header div {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  margin-top: 0;
+}
+header nav {
+  margin-left: auto;
+  align-self: center;
+}
+
+header nav .dropdown {
+  margin-left: -140px;
+  margin-right: 20px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.dropdown > button {
+  color: #fff;
+  border: 0;
+  background-color: transparent;
+}
+
+.dropdown > button:hover, .show > .btn-secondary.dropdown-toggle  {
+  background-color: #fff;
+  color: #0069ff;
+}
+
+nav a {
+  margin: 0 20px;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+nav a:hover {
+  text-decoration: none;
+  color: #0069ff;
+  background-color: #fff;
+  text-decoration: none;
+}
+
+header input {
+  padding: 6px;
+  border: 0;
+  width: 360px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+header h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+}
+header h2 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: normal;
+}
+.container {
+  margin-top: 20px;
+}
+
+aside {
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #ddd;
+}
+
+
+.slide-down-enter td {
+  padding: 0px 12px;
+  transform: scaleY(0);
+  line-height: 0;
+}
+
+.slide-down-enter-active, .slide-down-enter-done td {
+  border: 1;
+  transform: scaleY(0);
+  transition: transform 500ms ease-in, line-height 500ms ease-in, padding 500ms ease-in;
+  position: relative;
+}
+
+.slide-down-enter-done td {
+  padding: 12px 12px;
+  transform: scaleY(1);
+  font-size: inherit;
+  line-height: inherit;
+  transition: transform 500ms ease-in, line-height 500ms ease-in, padding 500ms ease-in;
+}

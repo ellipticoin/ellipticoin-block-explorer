@@ -1,0 +1,2 @@
+export const FETCH_BLOCKS = 'FETCH_BLOCKS';
+export const RECEIVE_BLOCKS = 'RECEIVE_BLOCKS';
