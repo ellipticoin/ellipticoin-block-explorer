@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import cbor from 'cbor';
 import queryString from 'query-string';
 const PREFETCH_COUNT = 10;
-const HOST = "68.183.123.91:4047";
+const HOST = "davenport.ellipticoin.org:4047";
 const BLOCKS_WEBSOCKET_PATH = "websocket/blocks";
 const BLOCKS_PATH = "blocks";
 
@@ -24,7 +24,7 @@ export function fetchBlocksError(error) {
 export function fetchAndSubscribeToBlocks(limit) {
   return dispatch => {
     var queryParams = queryString.stringify({ limit });
-    fetch(`http://${HOST}/${BLOCKS_PATH}?${queryParams}`).then(async (response, json) =>{
+    fetch(`https://${HOST}/${BLOCKS_PATH}?${queryParams}`).then(async (response, json) =>{
       if(response.status === 200) {
         decodeBytes(await response.arrayBuffer()).blocks.map((block) =>
         dispatch(receiveBlock(block))
@@ -33,7 +33,7 @@ export function fetchAndSubscribeToBlocks(limit) {
         dispatch(fetchBlocksError())
       }
 
-      var blocksSocket = new WebSocket(`ws://${HOST}/${BLOCKS_WEBSOCKET_PATH}`);
+      var blocksSocket = new WebSocket(`wss://${HOST}/${BLOCKS_WEBSOCKET_PATH}`);
       blocksSocket.binaryType = "arraybuffer";
       blocksSocket.onmessage = ({data}) => dispatch(receiveBlock(decodeBytes(data)));
     })
