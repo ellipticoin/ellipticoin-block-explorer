@@ -9,16 +9,15 @@ import {
   Row,
   Table,
 } from 'reactstrap';
+const PREFETCH_COUNT = 3;
 
 export default class Blocks extends Component {
   constructor(props) {
     super(props);
-    this.props.blockActions.fetchAndSubscribeToBlocks(10);
+    this.props.blockActions.fetchAndSubscribeToBlocks(PREFETCH_COUNT);
   }
 
   render() {
-    let blocks = this.generateBlocks()
-
     return <div>
       <h1>Latest Blocks</h1>
       <Table>
@@ -28,28 +27,17 @@ export default class Blocks extends Component {
             <th>Forged By</th>
           </tr>
         </thead>
-      <TransitionGroup
-        component="tbody"
-        className="todo-list"
-        >
-        {blocks}
-      </TransitionGroup>
+        {this.blocks()}
       </Table>
     </div>
   }
 
-  generateBlocks() {
-    return 0, this.props.latestBlocks.map((block) => {
-      return <CSSTransition
-                key={block.number}
-                timeout={500}
-                classNames="slide-down"
-              >
-        <tr>
-          <td>{block.number}</td>
-          <td><a href="#">0x{block.winner.toString("hex")}</a></td>
-        </tr>
-      </CSSTransition>;
+  blocks() {
+    return this.props.latestBlocks.map((block) => {
+      return <tr>
+        <td>{block.number}</td>
+        <td><a href="#">0x{block.winner.toString("hex")}</a></td>
+      </tr>;
     });
   };
 }

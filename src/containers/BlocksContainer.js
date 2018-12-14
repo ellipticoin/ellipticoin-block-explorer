@@ -9,7 +9,7 @@ const blocksSelector = state => state.blockReducer
 
 const latestBlocks = createSelector(
   blocksSelector,
-  (blocks) => _.take(blocks, 3),
+  (blocks) => _.take(_.reverse(_.sortBy(blocks, "number")), 3),
 )
 
 
