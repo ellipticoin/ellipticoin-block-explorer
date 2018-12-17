@@ -1,9 +1,6 @@
 import {
-  Button,
   Col,
   Container,
-  Input,
-  Jumbotron,
   Row,
   Table,
 } from 'reactstrap';
@@ -16,16 +13,12 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <div>
         <header>
           <div>
-            <img src={logo} />
+            <img alt="logo" src={logo} />
           </div>
           <div>
           <h1>Ellipticoin</h1>

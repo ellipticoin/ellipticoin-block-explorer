@@ -1,12 +1,5 @@
-import _ from "lodash";
-import {
-  CSSTransition,
-  TransitionGroup,
-} from 'react-transition-group';
 import React, { Component } from 'react';
 import {
-  Col,
-  Row,
   Table,
 } from 'reactstrap';
 const PREFETCH_COUNT = 3;
@@ -27,14 +20,16 @@ export default class Blocks extends Component {
             <th>Forged By</th>
           </tr>
         </thead>
-        {this.blocks()}
+        <tbody>
+          {this.blocks()}
+        </tbody>
       </Table>
     </div>
   }
 
   blocks() {
-    return this.props.latestBlocks.map((block) => {
-      return <tr>
+    return this.props.latestBlocks.map((block, i) => {
+      return <tr key={i}>
         <td>{block.number}</td>
         <td><a href="#">0x{block.winner.toString("hex")}</a></td>
       </tr>;

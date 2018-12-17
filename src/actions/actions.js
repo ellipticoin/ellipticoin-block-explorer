@@ -25,9 +25,9 @@ export function fetchAndSubscribeToBlocks(limit) {
     var queryParams = queryString.stringify({ limit });
     fetch(`https://${HOST}/${BLOCKS_PATH}?${queryParams}`).then(async (response, json) => {
       if(response.status === 200) {
-        decodeBytes(await response.arrayBuffer()).blocks.map((block) =>{
+        decodeBytes(await response.arrayBuffer()).blocks.map((block) =>
           dispatch(receiveBlock(block))
-        });
+        );
       } else {
         dispatch(fetchBlocksError())
       }
