@@ -3,13 +3,21 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as blockActions from "../actions/actions";
 import { createSelector } from 'reselect';
-import _ from "lodash";
 
 const blocksSelector = state => state.blockReducer
 
+const byKeyDesc = key => (a, b) => {
+    return a[key] === b[key] ? 0 : (a[key] > b[key]) ? -1 : 1;
+}
+
 const latestBlocks = createSelector(
   blocksSelector,
-  (blocks) => _.take(_.reverse(_.sortBy(blocks, "number")), 3),
+  (blocks) => blocks.sort(byKeyDesc("number")).slice(0, 4),
+  // compose(
+  //   orderBy(['number'], ['desc']),
+  //   take(3)
+  // )(blocks.slice())
+  // _.take(_.orderBy(blocks.slice(), ['number'], ['desc']), 3),
 )
 
 

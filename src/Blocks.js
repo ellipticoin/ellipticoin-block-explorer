@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import {
   Table,
 } from 'reactstrap';
-const PREFETCH_COUNT = 3;
+const PREFETCH_COUNT = 4;
 
 export default class Blocks extends Component {
   constructor(props) {
     super(props);
     this.props.blockActions.fetchAndSubscribeToBlocks(PREFETCH_COUNT);
+    this.state = {
+      rendered: false,
+    };
   }
+
+  componentDidMount = () => {
+    this.setState({
+      ...this.state,
+      rendered: true
+    });
+  }
+
 
   render() {
     return <div>
@@ -20,19 +32,27 @@ export default class Blocks extends Component {
             <th>Forged By</th>
           </tr>
         </thead>
-        <tbody>
           {this.blocks()}
-        </tbody>
       </Table>
     </div>
   }
 
   blocks() {
-    return this.props.latestBlocks.map((block, i) => {
-      return <tr key={i}>
-        <td>{block.number}</td>
-        <td><a href="#">0x{block.winner.toString("hex")}</a></td>
-      </tr>;
-    });
+    return <TransitionGroup 
+    enter={this.props.latestBlocks.length > 3}
+    component="tbody" >
+      {this.props.latestBlocks.map((block, index) =>
+        <CSSTransition
+          key={block.number}
+          timeout={500}
+          classNames="fade"
+        >
+          <tr>
+            <td><div>{block.number}</div></td>
+            <td><div><a href="#">0x{block.winner.toString("hex")}</a></div></td>
+        </tr>
+        </CSSTransition>
+      )}
+    </TransitionGroup>
   };
 }

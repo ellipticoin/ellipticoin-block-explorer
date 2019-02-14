@@ -1,3 +1,28 @@
+
+.table td {
+  padding: 0;
+}
+
+
+.table td div {
+  box-sizing: content-box;
+  padding: .75rem;
+}
+
+.fade-enter div {
+  opacity: .5;
+  overflow-y: hidden;
+  max-height: 0;
+}
+
+
+.fade-enter-active div {
+  opacity: 1;
+  max-height: 100px;
+  transition: all 1s ease-in;
+}
+
+
 header {
   padding: 10px 0;
   background-color: #0069ff;
