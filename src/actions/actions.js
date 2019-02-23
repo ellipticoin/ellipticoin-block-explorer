@@ -6,6 +6,7 @@ const BLOCKS_WEBSOCKET_PATH = "websocket/blocks";
 const BLOCKS_PATH = "blocks";
 
 export function receiveBlock(block) {
+  console.log(block);
   return {
     type: types.RECEIVE_BLOCKS,
     block

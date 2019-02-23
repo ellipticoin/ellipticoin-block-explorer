@@ -4,6 +4,7 @@ import {
   Table,
 } from 'reactstrap';
 const PREFETCH_COUNT = 4;
+const ETHEREUM_BLOCK_EXPLORER = "https://rinkeby.etherscan.io";
 
 export default class Blocks extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ export default class Blocks extends Component {
           <tr>
             <th>Block Number</th>
             <th>Forged By</th>
+            <th>Ethereum Block</th>
           </tr>
         </thead>
           {this.blocks()}
@@ -50,9 +52,18 @@ export default class Blocks extends Component {
           <tr>
             <td><div>{block.number}</div></td>
             <td><div><a href="#">0x{block.winner.toString("hex")}</a></div></td>
+            <td><div>{this.ethereumBlockHashLink(block)}</div></td>
         </tr>
         </CSSTransition>
       )}
     </TransitionGroup>
   };
+
+  ethereumBlockHashLink = (block) =>
+    block.ethereum_block_hash ?
+    <a target="_blank" href={`${ETHEREUM_BLOCK_EXPLORER}/block/${block.ethereum_block_number}`}>
+      0x{block.ethereum_block_hash.toString("hex")}
+    </a> : null
 }
+
+
