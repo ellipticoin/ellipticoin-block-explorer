@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 import cbor from 'cbor';
 import queryString from 'query-string';
-const HOST = "davenport.ellipticoin.org:4047";
+const HOST = "davenport.ellipticoin.org";
 const BLOCKS_WEBSOCKET_PATH = "websocket/blocks";
 const BLOCKS_PATH = "blocks";
 
