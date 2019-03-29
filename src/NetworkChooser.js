@@ -40,7 +40,7 @@ export default class NetworkChooser extends Component {
       <Modal isOpen={this.state.modalOpen} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggleModal}>Under Construction</ModalHeader>
           <ModalBody>
-            Ellipticoin is still in alpha. The mainnet is scheduled to be launched Q1 2019.
+            Ellipticoin is still in alpha. The mainnet is scheduled to be launched Q3 2019.
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggleModal}>Got it</Button>{' '}
