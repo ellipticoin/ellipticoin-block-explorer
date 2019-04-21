@@ -13,11 +13,6 @@ const byKeyDesc = key => (a, b) => {
 const latestBlocks = createSelector(
   blocksSelector,
   (blocks) => blocks.sort(byKeyDesc("number")).slice(0, 4),
-  // compose(
-  //   orderBy(['number'], ['desc']),
-  //   take(3)
-  // )(blocks.slice())
-  // _.take(_.orderBy(blocks.slice(), ['number'], ['desc']), 3),
 )
 
 

@@ -3,8 +3,9 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import {
   Table,
 } from 'reactstrap';
+import './Blocks.css';
+import { base64url } from "./helpers.js";
 const PREFETCH_COUNT = 4;
-const ETHEREUM_BLOCK_EXPLORER = "https://rinkeby.etherscan.io";
 
 export default class Blocks extends Component {
   constructor(props) {
@@ -49,8 +50,8 @@ export default class Blocks extends Component {
           classNames="fade"
         >
           <tr>
-            <td><div>{block.number}</div></td>
-            <td><div><a href="#">{block.winner.toString("base64")}</a></div></td>
+            <td className="block-number"><div><a href={`/blocks/${base64url(block.hash)}`}>{block.number}</a></div></td>
+            <td><div><a href={`/addresses/${base64url(block.winner)}`}>{block.winner.toString("base64")}</a></div></td>
         </tr>
         </CSSTransition>
       )}

@@ -1,11 +1,11 @@
 import initialState from './initialState';
-import {FETCH_BLOCKS, RECEIVE_BLOCKS} from '../actions/actionTypes';
+import {FETCH_BLOCKS, RECEIVE_BLOCK} from '../actions/actionTypes';
 
 export default function block(state = initialState, action) {
   switch (action.type) {
     case FETCH_BLOCKS:
       return action;
-    case RECEIVE_BLOCKS:
+    case RECEIVE_BLOCK:
       return [
         action.block,
         ...state,

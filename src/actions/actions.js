@@ -1,46 +1,109 @@
 import * as types from './actionTypes';
 import cbor from 'cbor';
 import queryString from 'query-string';
-const HOST = "davenport.ellipticoin.org";
-const BLOCKS_WEBSOCKET_PATH = "websocket/blocks";
-const BLOCKS_PATH = "blocks";
+import { base64url, systemContract, balanceKey, bytesToNumber } from "../helpers.js"
+const HOST = process.env.NODE_ENV === 'production' || true ?
+  "https://davenport.ellipticoin.org":
+  "http://localhost:4460";
+const WEBSOCKET_HOST = process.env.NODE_ENV === 'production' || true ?
+  "wss://davenport.ellipticoin.org":
+  "ws://localhost:4460";
+
+const SYSTEM_ADDRESS = new Uint8Array(32);
+var newBlockEvent = new Event('newBlock');
+
+export function fetchBalance(address) {
+  return dispatch => {
+    fetch(`${HOST}/memory/${base64url(SYSTEM_ADDRESS)}/${base64url(systemContract("BaseToken"))}/${base64url(balanceKey(address))}`).then(async (response, json) => {
+      if(response.status === 200) {
+        dispatch(receiveBalance({[address]: {balance: bytesToNumber(await response.arrayBuffer())}}))
+      } else {
+        throw(Error("Failed to fetch block"))
+      }
+    })
+  }
+}
+
+export function fetchBlock(hash) {
+  return dispatch => {
+    fetch(`${HOST}/blocks/${hash}`).then(async (response, json) => {
+      if(response.status === 200) {
+        dispatch(receiveBlock(decodeBytes(await response.arrayBuffer())))
+      } else {
+        throw(Error("Failed to fetch block"))
+      }
+    })
+  }
+}
+
+export function fetchTransaction(hash) {
+  return dispatch => {
+    fetch(`${HOST}/transactions/${hash}`).then(async (response, json) => {
+      if(response.status === 200) {
+        dispatch(receiveTransaction(decodeBytes(await response.arrayBuffer())))
+      } else {
+        dispatch(fetchTransactionError())
+      }
+    })
+  }
+}
+
+export function receiveBalance(balance) {
+  return {
+    type: types.RECEIVE_BALANCE,
+    balance
+  };
+}
 
 export function receiveBlock(block) {
-  console.log(block);
   return {
-    type: types.RECEIVE_BLOCKS,
+    type: types.RECEIVE_BLOCK,
     block
+  };
+}
+
+export function receiveTransaction(transaction) {
+  return {
+    type: types.RECEIVE_TRANSACTION,
+    transaction
   };
 }
 
 export function fetchBlocksSuccess(json) {
   return {
-    type: types.RECEIVE_BLOCKS, block: json.blocks
+    type: types.RECEIVE_BLOCK, block: json.blocks
   };
 }
 
 export function fetchBlocksError(error) {
   console.log(error);
 }
+
+export function fetchTransactionError(error) {
+  console.log(error);
+}
 export function fetchAndSubscribeToBlocks(limit) {
   return dispatch => {
     var queryParams = queryString.stringify({ limit });
-    fetch(`https://${HOST}/${BLOCKS_PATH}?${queryParams}`).then(async (response, json) => {
+    fetch(`${HOST}/blocks?${queryParams}`).then(async (response, json) => {
       if(response.status === 200) {
-        decodeBytes(await response.arrayBuffer()).blocks.map((block) =>
+        decodeBytes(await response.arrayBuffer()).blocks.forEach((block) =>
           dispatch(receiveBlock(block))
         );
+        subscribeToBlocks(dispatch);
       } else {
-        dispatch(fetchBlocksError())
+        throw(Error(fetchBlocksError()));
       }
-      subscribeToBlocks(dispatch);
     })
   }
 }
 export function subscribeToBlocks(dispatch) {
-      var blocksSocket = new WebSocket(`wss://${HOST}/${BLOCKS_WEBSOCKET_PATH}`);
+      var blocksSocket = new WebSocket(`${WEBSOCKET_HOST}/websocket/blocks`);
       blocksSocket.binaryType = "arraybuffer";
-      blocksSocket.onmessage = ({data}) => dispatch(receiveBlock(decodeBytes(data)));
+      blocksSocket.onmessage = ({data}) => {
+        window.dispatchEvent(newBlockEvent);
+        dispatch(receiveBlock(decodeBytes(data)))
+      };
       blocksSocket.onclose = ({code}) => console.log(`WebSocket disconnect code: ${code}`)
 
       // Heartbeat

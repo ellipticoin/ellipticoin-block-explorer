@@ -1,12 +1,25 @@
+[data-icon] {
+  font-size: 22px;
+  position: relative;
+  top: 14px;
+}
+[data-icon="info-circle"] {
+  color: #0080ff;
+}
 
 .table td {
-  padding: 0;
+  padding: 0 10px;
 }
+
+.table th {
+  padding: 10px 18px;
+}
+
 
 
 .table td div {
   box-sizing: content-box;
-  padding: .75rem;
+  padding: .75rem 10px;
 }
 
 .fade-enter div {
@@ -23,7 +36,15 @@
 }
 
 
+header .btn {
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 0px;
+}
+
 header {
+  font-size: 22px;
+  font-weight: bold;
   padding: 10px 0;
   background-color: #0069ff;
   display: flex;
@@ -48,8 +69,9 @@ header nav {
 }
 
 header nav .dropdown {
-  margin-left: -140px;
-  margin-right: 20px;
+  width: 224px;
+  margin-left: -256px;
+  margin-right: 0;
   flex-grow: 0;
   flex-shrink: 0;
 }
@@ -71,7 +93,6 @@ nav a {
   text-decoration: none;
   padding: 10px;
   display: inline-block;
-  border-radius: 10px;
 }
 
 nav a:hover {
@@ -82,11 +103,9 @@ nav a:hover {
 }
 
 header input {
-  padding: 6px;
+  padding: 12px;
   border: 0;
   width: 360px;
-  border-radius: 10px;
-  margin-right: 20px;
 }
 header h1 {
   font-size: 28px;
@@ -103,7 +122,7 @@ header h2 {
 }
 
 aside {
-  border-radius: 10px;
+  width: 400px;
   padding: 20px;
   background-color: #ddd;
 }
