@@ -69,7 +69,11 @@ export default class Transactions extends Component {
             <td><div>{transaction.contract_name}</div></td>
             <td><div>{transaction.function}</div></td>
             <td><div>{transaction.return_code === 0 ? "Success" : "Failed"}</div></td>
-            <td><a href={`/transactions/${base64url(transaction.hash)}`}><FontAwesomeIcon icon="info-circle" /></a></td>
+            <td>
+            {(transaction.hash) ?
+              <a href={`/transactions/${base64url(transaction.hash)}`}><FontAwesomeIcon icon="info-circle" /></a>
+              :null}
+              </td>
         </tr>
         </CSSTransition>
       )}
