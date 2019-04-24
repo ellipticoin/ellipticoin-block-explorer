@@ -26,7 +26,7 @@ export default class NetworkChooser extends Component {
 
   render() {
     return (
-      <div>
+      <>
       <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle caret>
           Network (Testnet)
@@ -46,7 +46,7 @@ export default class NetworkChooser extends Component {
             <Button color="primary" onClick={this.toggleModal}>Got it</Button>{' '}
           </ModalFooter>
         </Modal>
-      </div>
+      </>
     );
   }
 }

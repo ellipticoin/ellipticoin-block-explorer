@@ -13,9 +13,7 @@ const Header = () => (
     <nav>
       <a href="/">Transactions</a>
       <a href="/">Blocks</a>
-      </nav>
       <input placeholder="Search"/>
-    <nav>
       <NetworkChooser></NetworkChooser>
     </nav>
   </header>
