@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 import cbor from 'cbor';
 import queryString from 'query-string';
-import { base64url, systemContract, balanceKey, bytesToNumber } from "../helpers.js"
+import { base64url, toKey, balanceKey, bytesToNumber } from "../helpers.js"
 const HOST = process.env.NODE_ENV === 'production' ?
   "https://davenport.ellipticoin.org":
   "http://localhost:4460";
@@ -14,7 +14,8 @@ var newBlockEvent = new Event('newBlock');
 
 export function fetchBalance(address) {
   return dispatch => {
-    fetch(`${HOST}/memory/${base64url(SYSTEM_ADDRESS)}/${base64url(systemContract("BaseToken"))}/${base64url(balanceKey(address))}`).then(async (response, json) => {
+    let key = toKey(SYSTEM_ADDRESS, "BaseToken", balanceKey(address));
+    fetch(`${HOST}/memory/${base64url(key)}`).then(async (response, json) => {
       if(response.status === 200) {
         dispatch(receiveBalance({[address]: {balance: bytesToNumber(await response.arrayBuffer())}}))
       } else {

@@ -6,6 +6,7 @@ export function base64url(bytes) {
     .replace(/\+/g, "-")
     .replace(/\//g, "_");
 }
+
 export function base64urlToBytes(base64url) {
   return Buffer.from(base64url.replace(/-/g, "+").replace(/_/g, "/"), "base64")
 }
@@ -21,9 +22,20 @@ export function bytesToNumber(bytes) {
   return Long.fromBytesLE(Buffer.from(bytes)).toNumber()
 }
 
-export function systemContract(contractName, size) {
-  let contractNameBytes = new Buffer(contractName, 'utf8');
+export function toKey(address, contractName, key) {
+  return Buffer.concat([
+    Buffer.from(address),
+    Buffer.from(padRight(stringToBytes(contractName))),
+    Buffer.from(key)
+  ])
+}
+
+function stringToBytes(string) {
+  return new Buffer(string, 'utf8');
+}
+
+function padRight(bytes, number) {
   let padded = new Uint8Array(32);
-  padded.set(contractNameBytes);
+  padded.set(bytes);
   return padded;
 }
