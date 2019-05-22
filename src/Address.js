@@ -32,8 +32,9 @@ export default class Address extends Component {
             <tr>
               <th>Balance</th>
               <td><div><NumberEasing
-  value={address.balance}
-  precision={0}
+  value={address.balance/10000}
+  precision={2}
+  trail={2}
   speed={500}
   ease='quintInOut' /></div></td>
             </tr>

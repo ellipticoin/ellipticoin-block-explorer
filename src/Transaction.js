@@ -43,13 +43,10 @@ export default class Transaction extends Component {
               <th>Arguments</th>
               <td>
 
-        {console.log(this.props.transaction.arguments)}
-        {this.props.transaction.arguments.map((arg) => (
-        <tr>
-            <td>{Buffer.isBuffer(arg) ? arg.toString("base64") : arg}</td>
-        </tr>
-        ))
-        }</td>
+          {this.props.transaction.arguments.map((arg) => (
+              <div>{Buffer.isBuffer(arg) ? arg.toString("base64") : arg}</div>
+          ))}
+        </td>
             </tr>
             <tr>
               <th>Return Value</th>
