@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import {
   Table,
 } from 'reactstrap';
+import AddressLink from "./AddressLink";
 import "./Transaction.css";
+import cbor from "cbor";
 
 export default class Transaction extends Component {
   constructor(props) {
     super();
     if(!props.transaction) {
-      props.transactionActions.fetchTransaction(props.match.params.hash);
+      props.transactionActions.fetchTransaction(
+        props.match.params.blockHash,
+        props.match.params.executionOrder,
+      );
     }
   }
   render() {
@@ -19,10 +24,6 @@ export default class Transaction extends Component {
         <Table className="transaction">
           <tbody>
             <tr>
-              <th>Hash</th>
-              <td><div>{this.props.transaction.hash.toString("base64")}</div></td>
-            </tr>
-            <tr>
               <th>Contract Address</th>
               <td><div>{this.props.transaction.contract_address}</div></td>
             </tr>
@@ -32,19 +33,31 @@ export default class Transaction extends Component {
             </tr>
             <tr>
               <th>Sender</th>
-              <td><div>{this.props.transaction.sender}</div></td>
+              <td><div>{AddressLink(this.props.transaction.sender)}</div></td>
             </tr>
             <tr>
               <th>Function</th>
               <td><div>{this.props.transaction.function}</div></td>
             </tr>
             <tr>
+              <th>Arguments</th>
+              <td>
+
+        {console.log(this.props.transaction.arguments)}
+        {this.props.transaction.arguments.map((arg) => (
+        <tr>
+            <td>{Buffer.isBuffer(arg) ? arg.toString("base64") : arg}</td>
+        </tr>
+        ))
+        }</td>
+            </tr>
+            <tr>
               <th>Return Value</th>
-              <td>{this.props.transaction.return_value}</td>
+              <td><div>{this.props.transaction.return_value}</div></td>
             </tr>
             <tr>
               <th>Return Code</th>
-              <td>{this.props.transaction.return_code}</td>
+              <td><div>{this.props.transaction.return_code}</div></td>
             </tr>
           </tbody>
         </Table>

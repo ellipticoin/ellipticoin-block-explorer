@@ -4,7 +4,9 @@ import {
   Table,
 } from 'reactstrap';
 import './Blocks.css';
-import { base64url } from "./helpers.js";
+import {
+  base64url,
+} from "./helpers.js";
 const PREFETCH_COUNT = 4;
 
 export default class Blocks extends Component {

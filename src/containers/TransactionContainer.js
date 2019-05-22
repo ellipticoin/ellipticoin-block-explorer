@@ -6,10 +6,13 @@ import { find } from "lodash";
 import { base64urlToBytes } from "../helpers.js";
 
 function mapStateToProps(state, props) {
-  let hash = base64urlToBytes(props.match.params.hash);
-  return {
-    transaction: find(state.transactionReducer, ["hash", hash])
-  };
+  let blockHash = base64urlToBytes(props.match.params.blockHash);
+  let transaction = find(state.transactionReducer, {
+    "block_hash": blockHash,
+    "execution_order": parseInt(props.match.params.executionOrder)
+  })
+
+  return {transaction};
 }
 
 function mapDispatchToProps(dispatch) {

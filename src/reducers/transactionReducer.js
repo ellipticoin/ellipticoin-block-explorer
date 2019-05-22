@@ -10,7 +10,10 @@ export default function transaction(state = initialState, action) {
       ];
     case RECEIVE_BLOCK:
       return [
-        ...action.block.transactions,
+        ...action.block.transactions.map((transaction) => {
+          transaction.block_hash = action.block.hash
+          return transaction
+        }),
         ...state,
       ];
     default:

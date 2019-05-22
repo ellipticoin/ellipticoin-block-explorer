@@ -4,6 +4,7 @@ import {
 } from 'reactstrap';
 import Transactions from "./Transactions.js";
 import "./Block.css";
+import AddressLink from "./AddressLink";
 import { base64url } from "./helpers.js";
 
 export default class Block extends Component {
@@ -31,7 +32,7 @@ export default class Block extends Component {
             </tr>
             <tr>
               <th>Winner</th>
-              <td><div><a href={`/addresses/${base64url(block.winner)}`}>{block.winner.toString("base64")}</a></div></td>
+              <td><div>{AddressLink(block.winner)}</div></td>
             </tr>
           </tbody>
         </Table>

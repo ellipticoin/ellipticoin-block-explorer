@@ -12,6 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { base64url } from "./helpers";
 import "./Transactions.css";
+import {
+  objectHash,
+} from "./helpers.js"
 
 library.add(faInfoCircle)
 
@@ -61,8 +64,9 @@ export default class Transactions extends Component {
     component="tbody" >
       {this.props.latestTransactions.map((transaction, index) =>
         <CSSTransition
-          key={transaction.hash}
+          key={transaction.block_hash.toString() + transaction.execution_order}
           timeout={500}
+          key={transaction.function + transaction.nonce + transaction.block_hash}
           classNames="fade"
         >
           <tr>
@@ -70,10 +74,8 @@ export default class Transactions extends Component {
             <td><div>{transaction.function}</div></td>
             <td><div>{transaction.return_code === 0 ? "Success" : "Failed"}</div></td>
             <td>
-            {(transaction.hash) ?
-              <a href={`/transactions/${base64url(transaction.hash)}`}><FontAwesomeIcon icon="info-circle" /></a>
-              :null}
-              </td>
+              <a href={`/transactions/${base64url(transaction.block_hash)}/${transaction.execution_order}`}><FontAwesomeIcon icon="info-circle" /></a>
+            </td>
         </tr>
         </CSSTransition>
       )}
