@@ -66,7 +66,6 @@ export default class Transactions extends Component {
         <CSSTransition
           key={transaction.block_hash.toString() + transaction.execution_order}
           timeout={500}
-          key={transaction.function + transaction.nonce + transaction.block_hash}
           classNames="fade"
         >
           <tr>
