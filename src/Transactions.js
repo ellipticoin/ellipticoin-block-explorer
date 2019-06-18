@@ -64,7 +64,7 @@ export default class Transactions extends Component {
     component="tbody" >
       {this.props.latestTransactions.map((transaction, index) =>
         <CSSTransition
-          key={transaction.block_hash.toString() + transaction.execution_order}
+          key={transaction.block_hash + transaction.execution_order}
           timeout={500}
           classNames="fade"
         >
