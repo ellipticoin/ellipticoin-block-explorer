@@ -8,10 +8,16 @@ import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./Routes.js";
+import WebFont from "webfontloader";
 import {
   Container
 } from 'reactstrap';
 
+WebFont.load({
+  google: {
+    families: ['Open Sans']
+  }
+});
 const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
