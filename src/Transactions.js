@@ -36,7 +36,7 @@ export default class Transactions extends Component {
 
   render() {
     return <Row>
-          <Col xs="9" className="transactions">
+          <Col xs="12" lg="9" className="transactions">
             <h1>Latest Transactions</h1>
             <Table>
               <thead>
@@ -49,7 +49,7 @@ export default class Transactions extends Component {
                 {this.transactions()}
             </Table>
           </Col>
-          <Col xs="3">
+          <Col xs="12" sm="3">
             <aside>
               <h5>About</h5>
               Ellipticoin is a blockchain that runs decentralized applications. The Ellipticoin Block Explorer gives insight into the Ellipticoin network.

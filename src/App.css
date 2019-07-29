@@ -49,17 +49,31 @@ header .btn {
 header {
   font-size: 22px;
   font-weight: bold;
-  padding: 10px 0;
+  padding: 10px 12px;
   background-color: #0069ff;
   display: flex;
   flex-direction: row;
 }
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+  }
+}
 
-header img {
-  width: 80px;
-  height: 56px;
-  padding: 0 12px;
-  margin: auto;
+header .header {
+  background-image: url("logo.svg");
+  background-repeat: no-repeat;
+  background-size: 54px;
+  background-position: 0;
+  padding-left: 77px;
+}
+@media screen and (max-width: 600px) {
+  header .header {
+    align-self: center;
+  }
+}
+header h1 {
+  display: block;
 }
 
 header div {
@@ -69,14 +83,25 @@ header div {
   margin-top: 0;
 }
 header nav {
+  padding: 0 12px;
+  display: flex;
   margin-left: auto;
-  margin-right: 12px;
-  /* align-self: left; */
+}
+@media screen and (max-width: 600px) {
+  header nav {
+    margin-right: auto;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  header nav a{
+    text-align: center;
+  }
 }
 
 header nav  .dropdown {
-  display: inline-block;
-  margin: 0 20px;
+  margin-left: 12px;
 }
 
 .dropdown > button {
@@ -95,7 +120,6 @@ nav a {
   color: #fff;
   text-decoration: none;
   padding: 10px;
-  display: inline-block;
 }
 
 nav a:hover {

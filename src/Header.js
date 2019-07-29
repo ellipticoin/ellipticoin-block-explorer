@@ -3,10 +3,7 @@ import NetworkChooser from './NetworkChooser';
 import React from 'react';
 const Header = () => (
   <header>
-    <div>
-      <img alt="logo" src={logo} />
-    </div>
-    <div>
+    <div class="header">
       <h1>Ellipticoin</h1>
       <h2>Block Explorer</h2>
     </div>
