@@ -3,15 +3,13 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as transactionActions from "../actions/actions";
 import { find } from "lodash";
-import { base64urlToBytes } from "../helpers.js";
+import { base64urlToBytes, transactionHash } from "../helpers.js";
 
 function mapStateToProps(state, props) {
-  let blockHash = base64urlToBytes(props.match.params.blockHash);
-  let transaction = find(state.transactionReducer, {
-    "block_hash": blockHash,
-    "execution_order": parseInt(props.match.params.executionOrder)
-  })
-
+  let hash = base64urlToBytes(props.match.params.transactionHash);
+  let transaction = find(state.transactionReducer, (transaction) =>
+     transactionHash(transaction).toString() === hash.toString()
+  )
   return {transaction};
 }
 

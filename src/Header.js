@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import NetworkChooser from './NetworkChooser';
 import React from 'react';
 const Header = () => (
   <header>
-    <div class="header">
+    <div className="header">
       <h1>Ellipticoin</h1>
       <h2>Block Explorer</h2>
     </div>

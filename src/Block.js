@@ -5,7 +5,6 @@ import {
 import Transactions from "./Transactions.js";
 import "./Block.css";
 import AddressLink from "./AddressLink";
-import { base64url } from "./helpers.js";
 
 export default class Block extends Component {
   constructor(props) {

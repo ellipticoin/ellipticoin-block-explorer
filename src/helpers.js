@@ -3,17 +3,10 @@ const cbor = require("cbor");
 const crypto = require("crypto");
 const _ = require("lodash");
 
+export function transactionHash(transaction) {
+  return objectHash(_.omit(transaction, ["return_code", "return_value", "block_hash"]))
+}
 export function objectHash(object) {
-  // if(object.function == "transfer") {
-    console.log(object.block_hash)
-    // console.log(sha256(cbor.encodeCanonical(_.pick(
-    //   object, [
-    //     "nonce", "sender", "function", "arguments", "return_code", "return_value", "contract_name", "contract_address",
-    //     //"block_hash"
-    // ]))).toString("base64"))
-  // } else {
-  // }
-
   return sha256(cbor.encode(object))
 }
 

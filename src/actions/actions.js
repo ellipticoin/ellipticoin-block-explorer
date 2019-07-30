@@ -2,10 +2,10 @@ import * as types from './actionTypes';
 import cbor from 'cbor';
 import queryString from 'query-string';
 import { base64url, toKey, balanceKey, bytesToNumber } from "../helpers.js"
-const HOST = process.env.NODE_ENV === 'production' ||true ?
+const HOST = process.env.NODE_ENV === 'production'  ?
   "https://davenport.ellipticoin.org":
   "http://localhost:4460";
-const WEBSOCKET_HOST = process.env.NODE_ENV === 'production' ||true?
+const WEBSOCKET_HOST = process.env.NODE_ENV === 'production' ?
   "wss://davenport.ellipticoin.org":
   "ws://localhost:4460";
 
@@ -37,9 +37,9 @@ export function fetchBlock(hash) {
   }
 }
 
-export function fetchTransaction(blockHash, executionOrder) {
+export function fetchTransaction(transactionHash) {
   return dispatch => {
-    fetch(`${HOST}/transactions/${blockHash}/${executionOrder}`).then(async (response, json) => {
+    fetch(`${HOST}/transactions/${transactionHash}`).then(async (response, json) => {
       if(response.status === 200) {
         dispatch(
           receiveTransaction(decodeBytes(await response.arrayBuffer()))
@@ -92,7 +92,7 @@ export function fetchAndSubscribeToBlocks(limit) {
       if(response.status === 200) {
         decodeBytes(await response.arrayBuffer()).blocks.forEach((block) =>
           dispatch(receiveBlock(block))
-        );
+          );
         subscribeToBlocks(dispatch);
       } else {
         throw(Error(fetchBlocksError()));

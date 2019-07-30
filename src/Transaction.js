@@ -4,15 +4,13 @@ import {
 } from 'reactstrap';
 import AddressLink from "./AddressLink";
 import "./Transaction.css";
-import cbor from "cbor";
 
 export default class Transaction extends Component {
   constructor(props) {
     super();
     if(!props.transaction) {
       props.transactionActions.fetchTransaction(
-        props.match.params.blockHash,
-        props.match.params.executionOrder,
+        props.match.params.transactionHash,
       );
     }
   }
@@ -20,12 +18,11 @@ export default class Transaction extends Component {
     if(this.props.transaction) {
       return <>
         <h1>Transaction</h1>
-
         <Table className="transaction">
           <tbody>
             <tr>
               <th>Contract Address</th>
-              <td><div>{this.props.transaction.contract_address}</div></td>
+              <td><div>{AddressLink(this.props.transaction.contract_address)}</div></td>
             </tr>
             <tr>
               <th>Contract Name</th>
@@ -50,7 +47,7 @@ export default class Transaction extends Component {
             </tr>
             <tr>
               <th>Return Value</th>
-              <td><div>{this.props.transaction.return_value}</div></td>
+              <td><div>{this.props.transaction.return_value ? this.props.transaction.return_value: "Null"}</div></td>
             </tr>
             <tr>
               <th>Return Code</th>
