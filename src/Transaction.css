@@ -1,3 +1,6 @@
+.transaction td {
+  width: 100%;
+}
 .transaction th {
-  width: 172px;
+  white-space: nowrap;
 }

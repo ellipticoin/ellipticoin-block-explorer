@@ -3,7 +3,13 @@ import {
   Table,
 } from 'reactstrap';
 import AddressLink from "./AddressLink";
+import TransactionLink from "./TransactionLink";
 import "./Transaction.css";
+import {
+  contractName,
+  contractCreatedBy,
+  transactionHash,
+} from "./helpers.js"
 
 export default class Transaction extends Component {
   constructor(props) {
@@ -21,12 +27,20 @@ export default class Transaction extends Component {
         <Table className="transaction">
           <tbody>
             <tr>
+              <th>Transaction Hash</th>
+              <td><div>{TransactionLink(transactionHash(this.props.transaction))}</div></td>
+            </tr>
+            <tr>
               <th>Contract Address</th>
-              <td><div>{AddressLink(this.props.transaction.contract_address)}</div></td>
+              <td><div>{this.props.transaction.contract_address.toString("base64")}</div></td>
+            </tr>
+            <tr>
+              <th>Contract Created By</th>
+              <td><div>{AddressLink(contractCreatedBy(this.props.transaction.contract_address))}</div></td>
             </tr>
             <tr>
               <th>Contract Name</th>
-              <td><div>{this.props.transaction.contract_name}</div></td>
+              <td><div>{contractName(this.props.transaction.contract_address)}</div></td>
             </tr>
             <tr>
               <th>Sender</th>
@@ -39,10 +53,11 @@ export default class Transaction extends Component {
             <tr>
               <th>Arguments</th>
               <td>
-
-          {this.props.transaction.arguments.map((arg) => (
-              <div>{Buffer.isBuffer(arg) ? arg.toString("base64") : arg}</div>
-          ))}
+              <div>
+          {this.props.transaction.arguments.map((arg) => 
+              Buffer.isBuffer(arg) ? arg.toString("base64") : arg
+          ).join(", ")}
+              </div>
         </td>
             </tr>
             <tr>

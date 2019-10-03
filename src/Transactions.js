@@ -13,6 +13,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { base64url } from "./helpers";
 import "./Transactions.css";
 import {
+  contractName,
   transactionHash,
 } from "./helpers.js"
 
@@ -69,7 +70,7 @@ export default class Transactions extends Component {
           classNames="fade"
         >
           <tr>
-            <td><div>{transaction.contract_name}</div></td>
+            <td><div>{contractName(transaction.contract_address)}</div></td>
             <td><div>{transaction.function}</div></td>
             <td><div>{transaction.return_code}</div></td>
             <td><div>{transaction.return_code === 0 ? "Success" : "Failed"}</div></td>

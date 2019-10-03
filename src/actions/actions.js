@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import cbor from 'cbor';
 import queryString from 'query-string';
 import { base64url, toKey, balanceKey, bytesToNumber } from "../helpers.js"
-const HOST = process.env.NODE_ENV === 'production'  ?
+const HOST = process.env.NODE_ENV === 'production' ?
   "https://davenport.ellipticoin.org":
   "http://localhost:4460";
 const WEBSOCKET_HOST = process.env.NODE_ENV === 'production' ?

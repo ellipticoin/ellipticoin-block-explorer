@@ -12,11 +12,12 @@ body {
 }
 
 .table td {
-  padding: 0 10px;
+  padding: 0 0;
 }
 
 .table th {
-  padding: 10px 18px;
+  font-weight: bold;
+  padding: 10px;
 }
 
 

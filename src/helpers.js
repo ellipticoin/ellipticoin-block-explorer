@@ -3,8 +3,20 @@ const cbor = require("cbor");
 const crypto = require("crypto");
 const _ = require("lodash");
 
+export function contractCreatedBy(contractAddress) {
+  return contractAddress.slice(0, 32);
+}
+export function contractName(contractAddress) {
+  return contractAddress.slice(32).toString("utf8");
+}
+
 export function transactionHash(transaction) {
-  return objectHash(_.omit(transaction, ["return_code", "return_value", "block_hash"]))
+  return objectHash(_.omit(transaction, [
+    "hash",
+    "block_hash",
+    "return_code",
+    "return_value",
+  ]))
 }
 export function objectHash(object) {
   return sha256(cbor.encode(object))
