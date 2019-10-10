@@ -2,10 +2,10 @@ import Address from "../Address";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as addressActions from "../actions/actions";
-import { base64urlToBytes } from "../helpers.js";
+import base64url from "base64url";
 
 function mapStateToProps(state, props) {
-  let address = base64urlToBytes(props.match.params.address);
+  let address = base64url.toBuffer(props.match.params.address);
   return {
     address: state.addressReducer[address]
   };

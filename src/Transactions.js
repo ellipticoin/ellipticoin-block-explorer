@@ -10,7 +10,7 @@ import {
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import { base64url } from "./helpers";
+import base64url from "base64url";
 import "./Transactions.css";
 import {
   contractName,

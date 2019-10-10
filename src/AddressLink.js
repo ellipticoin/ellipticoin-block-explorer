@@ -1,5 +1,5 @@
 import React from 'react';
-import { base64url } from "./helpers.js";
+import base64url from "base64url";
 
 const AddressLink = (address) => {
   let linkText;

@@ -4,17 +4,17 @@ import {
 } from 'reactstrap';
 import "./Address.css";
 import NumberEasing from 'che-react-number-easing';
-import { base64urlToBytes } from "./helpers.js";
+import base64url from "base64url";
 
 export default class Address extends Component {
   constructor(props) {
     super();
     if(!props.address) {
       props.addressActions.fetchAndSubscribeToBlocks();
-      props.addressActions.fetchBalance(base64urlToBytes(props.match.params.address));
+      props.addressActions.fetchBalance(base64url.toBuffer(props.match.params.address));
     }
     window.addEventListener('newBlock', () => {
-      props.addressActions.fetchBalance(base64urlToBytes(props.match.params.address));
+      props.addressActions.fetchBalance(base64url.toBuffer(props.match.params.address));
     })
   }
   render() {

@@ -1,7 +1,8 @@
 import * as types from './actionTypes';
 import cbor from 'cbor';
 import queryString from 'query-string';
-import { base64url, toKey, balanceKey, bytesToNumber } from "../helpers.js"
+import base64url from "base64url";
+import { toKey, balanceKey, bytesToNumber } from "../helpers.js"
 const HOST = process.env.NODE_ENV === 'production' ?
   "https://davenport.ellipticoin.org":
   "http://localhost:4460";
@@ -90,7 +91,7 @@ export function fetchAndSubscribeToBlocks(limit) {
     var queryParams = queryString.stringify({ limit });
     fetch(`${HOST}/blocks?${queryParams}`).then(async (response, json) => {
       if(response.status === 200) {
-        decodeBytes(await response.arrayBuffer()).blocks.forEach((block) =>
+        decodeBytes(await response.arrayBuffer()).forEach((block) =>
           dispatch(receiveBlock(block))
           );
         subscribeToBlocks(dispatch);
