@@ -1,5 +1,5 @@
 const Long = require("long");
-const cbor = require("cbor");
+const cbor = require("borc");
 const crypto = require("crypto");
 const _ = require("lodash");
 
@@ -11,6 +11,8 @@ export function contractName(contractAddress) {
 }
 
 export function transactionHash(transaction) {
+  console.log(["doubler_coin", new Uint8Array(50000), [150000]])
+  console.log(objectHash(["doubler_coin", new Uint8Array(50000), [150000]]).toString("base64"))
   return objectHash(_.omit(transaction, [
     "hash",
     "block_hash",

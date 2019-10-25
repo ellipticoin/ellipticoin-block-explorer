@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import cbor from 'cbor';
+import cbor from 'borc';
 import queryString from 'query-string';
 import base64url from "base64url";
 import { toKey, balanceKey, bytesToNumber } from "../helpers.js"
@@ -128,4 +128,4 @@ export function subscribeToBlocks(dispatch) {
 
 
 
-const decodeBytes = (bytes) => cbor.decodeFirstSync(Buffer.from(bytes));
+const decodeBytes = (bytes) => cbor.decode(Buffer.from(bytes));

@@ -5,6 +5,7 @@ import {
 import AddressLink from "./AddressLink";
 import TransactionLink from "./TransactionLink";
 import "./Transaction.css";
+import base64url from "base64url";
 import {
   contractName,
   contractCreatedBy,
@@ -32,7 +33,7 @@ export default class Transaction extends Component {
             </tr>
             <tr>
               <th>Contract Address</th>
-              <td><div>{this.props.transaction.contract_address.toString("base64")}</div></td>
+              <td><div>{base64url(this.props.transaction.contract_address)}</div></td>
             </tr>
             <tr>
               <th>Contract Created By</th>
