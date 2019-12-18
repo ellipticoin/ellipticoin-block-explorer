@@ -44,7 +44,7 @@ export default class Transactions extends Component {
                 <tr>
                   <th>Contract Name</th>
                   <th>Function</th>
-                  <th colSpan="2">Result</th>
+                  <th colSpan="3">Result</th>
                 </tr>
               </thead>
                 {this.transactions()}
@@ -65,7 +65,7 @@ export default class Transactions extends Component {
     component="tbody" >
       {this.props.latestTransactions.map((transaction, index) =>
         <CSSTransition
-          key={transaction.block_hash + transaction.hash}
+          key={transaction.block_hash + transactionHash(transaction)}
           timeout={500}
           classNames="fade"
         >

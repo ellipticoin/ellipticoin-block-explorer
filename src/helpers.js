@@ -11,13 +11,20 @@ export function contractName(contractAddress) {
 }
 
 export function transactionHash(transaction) {
-  console.log(["doubler_coin", new Uint8Array(50000), [150000]])
-  console.log(objectHash(["doubler_coin", new Uint8Array(50000), [150000]]).toString("base64"))
+  // console.log(transaction.arguments[2])
+  // console.log(sha256(borc.encode(transaction.arguments)).toString("base64"))
+  // console.log(cbor.encodeCanonical((_.omit(transaction, [
+  //   "block_hash",
+  //   "arguments",
+  //   "return_code",
+  //   "return_value",
+  //   "hash",
+  // ]))).byteLength)
   return objectHash(_.omit(transaction, [
-    "hash",
     "block_hash",
     "return_code",
     "return_value",
+    "hash",
   ]))
 }
 export function objectHash(object) {

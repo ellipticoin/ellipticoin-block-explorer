@@ -3,7 +3,7 @@ import base64url from "base64url";
 
 const AddressLink = (address) => {
   let linkText;
-  if (address.compare(new Buffer(32)) == 0) {
+  if (address.compare(new Buffer(32)) === 0) {
     linkText = `System (${address.toString("base64")})`;
   } else {
     linkText = address.toString("base64");

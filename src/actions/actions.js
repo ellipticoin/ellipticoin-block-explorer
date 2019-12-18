@@ -15,7 +15,7 @@ var newBlockEvent = new Event('newBlock');
 
 export function fetchBalance(address) {
   return dispatch => {
-    let key = toKey(SYSTEM_ADDRESS, "BaseToken", balanceKey(address));
+    let key = toKey(SYSTEM_ADDRESS, "Ellipticoin", balanceKey(address));
     fetch(`${HOST}/memory/${base64url(key)}`).then(async (response, json) => {
       if(response.status === 200) {
         dispatch(receiveBalance({[address]: {balance: bytesToNumber(await response.arrayBuffer())}}))
@@ -102,8 +102,9 @@ export function fetchAndSubscribeToBlocks(limit) {
   }
 }
 export function subscribeToBlocks(dispatch) {
-      var blocksSocket = new WebSocket(`${WEBSOCKET_HOST}/websocket/blocks`);
+      var blocksSocket = new WebSocket(`${WEBSOCKET_HOST}/websocket`);
       blocksSocket.binaryType = "arraybuffer";
+      blocksSocket.onerror = console.log
       blocksSocket.onmessage = ({data}) => {
         window.dispatchEvent(newBlockEvent);
         dispatch(receiveBlock(decodeBytes(data)))

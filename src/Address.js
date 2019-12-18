@@ -10,7 +10,7 @@ export default class Address extends Component {
   constructor(props) {
     super();
     if(!props.address) {
-      props.addressActions.fetchAndSubscribeToBlocks();
+      props.addressActions.fetchAndSubscribeToBlocks(1);
       props.addressActions.fetchBalance(base64url.toBuffer(props.match.params.address));
     }
     window.addEventListener('newBlock', () => {
@@ -34,7 +34,7 @@ export default class Address extends Component {
               <td><div><NumberEasing
   value={address.balance/10000}
   precision={2}
-  trail={2}
+  trail={true}
   speed={500}
   ease='quintInOut' /></div></td>
             </tr>
