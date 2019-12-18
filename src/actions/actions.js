@@ -18,7 +18,7 @@ export function fetchBalance(address) {
     let key = toKey(SYSTEM_ADDRESS, "Ellipticoin", balanceKey(address));
     fetch(`${HOST}/memory/${base64url(key)}`).then(async (response, json) => {
       if(response.status === 200) {
-        dispatch(receiveBalance({[address]: {balance: bytesToNumber(await response.arrayBuffer())}}))
+        dispatch(receiveBalance({[address]: {balance: bytesToNumber(decodeBytes(await response.arrayBuffer()))}}))
       } else {
         throw(Error("Failed to fetch block"))
       }
