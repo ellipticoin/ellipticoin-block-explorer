@@ -20,19 +20,19 @@ export function transactionHash(transaction) {
   //   "return_value",
   //   "hash",
   // ]))).byteLength)
-  return objectHash(_.omit(transaction, [
-    "block_hash",
-    "return_code",
-    "return_value",
-    "hash",
-  ]))
+  return objectHash(
+    _.omit(transaction, ["block_hash", "return_code", "return_value", "hash"])
+  );
 }
 export function objectHash(object) {
-  return sha256(cbor.encode(object))
+  return sha256(cbor.encode(object));
 }
 
 function sha256(message) {
-  return crypto.createHash('sha256').update(message, 'utf8').digest()
+  return crypto
+    .createHash("sha256")
+    .update(message, "utf8")
+    .digest();
 }
 
 export function balanceKey(address) {
@@ -43,7 +43,7 @@ export function balanceKey(address) {
 }
 
 export function bytesToNumber(bytes) {
-  return Long.fromBytesLE(Buffer.from(bytes)).toNumber()
+  return Long.fromBytesLE(Buffer.from(bytes)).toNumber();
 }
 
 export function toKey(address, contractName, key) {
@@ -51,11 +51,11 @@ export function toKey(address, contractName, key) {
     Buffer.from(address),
     Buffer.from(padRight(stringToBytes(contractName))),
     Buffer.from(key)
-  ])
+  ]);
 }
 
 function stringToBytes(string) {
-  return new Buffer(string, 'utf8');
+  return new Buffer(string, "utf8");
 }
 
 function padRight(bytes, number) {

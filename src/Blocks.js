@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import {
-  Table,
-} from 'reactstrap';
-import './Blocks.css';
+import { Table } from "reactstrap";
+import "./Blocks.css";
 import base64url from "base64url";
 const PREFETCH_COUNT = 4;
 
@@ -12,7 +10,7 @@ export default class Blocks extends Component {
     super(props);
     this.props.blockActions.fetchAndSubscribeToBlocks(PREFETCH_COUNT);
     this.state = {
-      rendered: false,
+      rendered: false
     };
   }
 
@@ -21,42 +19,52 @@ export default class Blocks extends Component {
       ...this.state,
       rendered: true
     });
-  }
-
+  };
 
   render() {
-    return <div>
-      <h1>Latest Blocks</h1>
-      <Table>
-        <thead>
-          <tr>
-            <th>Block Number</th>
-            <th>Forged By</th>
-          </tr>
-        </thead>
+    return (
+      <div>
+        <h1>Latest Blocks</h1>
+        <Table>
+          <thead>
+            <tr>
+              <th>Block Number</th>
+              <th>Forged By</th>
+            </tr>
+          </thead>
           {this.blocks()}
-      </Table>
-    </div>
+        </Table>
+      </div>
+    );
   }
 
   blocks() {
-    return <TransitionGroup 
-    enter={this.props.latestBlocks.length > 3}
-    component="tbody" >
-      {this.props.latestBlocks.map((block, index) =>
-        <CSSTransition
-          key={block.number}
-          timeout={500}
-          classNames="fade"
-        >
-          <tr>
-            <td className="block-number"><div><a href={`/blocks/${base64url(block.hash)}`}>{block.number}</a></div></td>
-            <td><div><a href={`/addresses/${base64url(block.winner)}`}>{block.winner.toString("base64")}</a></div></td>
-        </tr>
-        </CSSTransition>
-      )}
-    </TransitionGroup>
-  };
+    return (
+      <TransitionGroup
+        enter={this.props.latestBlocks.length > 3}
+        component="tbody"
+      >
+        {this.props.latestBlocks.map((block, index) => (
+          <CSSTransition key={block.number} timeout={500} classNames="fade">
+            <tr>
+              <td className="block-number">
+                <div>
+                  <a href={`/blocks/${base64url(block.hash)}`}>
+                    {block.number}
+                  </a>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <a href={`/addresses/${base64url(block.winner)}`}>
+                    {block.winner.toString("base64")}
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    );
+  }
 }
-
-

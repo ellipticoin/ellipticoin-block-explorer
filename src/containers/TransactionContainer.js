@@ -8,12 +8,11 @@ import base64url from "base64url";
 
 function mapStateToProps(state, props) {
   let hash = base64url.toBuffer(props.match.params.transactionHash);
-  let transaction = find(state.transactionReducer, (transaction) => {
-    return transactionHash(transaction).toString() === hash.toString()
-  })
+  let transaction = find(state.transactionReducer, transaction => {
+    return transactionHash(transaction).toString() === hash.toString();
+  });
 
-
-  return {transaction};
+  return { transaction };
 }
 
 function mapDispatchToProps(dispatch) {
