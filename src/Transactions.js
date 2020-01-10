@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import React, { Component } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Table } from "reactstrap";
@@ -70,13 +71,13 @@ export default class Transactions extends Component {
                 </div>
               </td>
               <td>
-                <a
-                  href={`/transactions/${base64url(
+                <Link
+                  to={`/transactions/${base64url(
                     transactionHash(transaction)
                   )}`}
                 >
                   <FontAwesomeIcon icon="info-circle" />
-                </a>
+                </Link>
               </td>
             </tr>
           </CSSTransition>

@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom'
 import React from "react";
 import base64url from "base64url";
 
 const AddressLink = transactionHash => (
-  <a href={`/transactions/${base64url(transactionHash)}`}>
+  <Link to={`/transactions/${base64url(transactionHash)}`}>
     {base64url(transactionHash)}
-  </a>
+  </Link>
 );
 export default AddressLink;

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import React from "react";
 import base64url from "base64url";
 
@@ -9,6 +10,6 @@ const AddressLink = address => {
     linkText = address.toString("base64");
   }
 
-  return <a href={`/addresses/${base64url(address)}`}>{linkText}</a>;
+  return <Link to={`/addresses/${base64url(address)}`}>{linkText}</Link>;
 };
 export default AddressLink;

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import React, { Component } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Table } from "reactstrap";
@@ -49,16 +50,16 @@ export default class Blocks extends Component {
             <tr>
               <td className="block-number">
                 <div>
-                  <a href={`/blocks/${base64url(block.hash)}`}>
+                  <Link to={`/blocks/${base64url(block.hash)}`}>
                     {block.number}
-                  </a>
+                  </Link>
                 </div>
               </td>
               <td>
                 <div>
-                  <a href={`/addresses/${base64url(block.winner)}`}>
+                  <Link to={`/addresses/${base64url(block.winner)}`}>
                     {block.winner.toString("base64")}
-                  </a>
+                  </Link>
                 </div>
               </td>
             </tr>
