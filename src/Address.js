@@ -1,46 +1,59 @@
-import React, { Component } from 'react';
-import {
-  Table,
-} from 'reactstrap';
+import React, { Component } from "react";
+import { Table } from "reactstrap";
 import "./Address.css";
-import NumberEasing from 'che-react-number-easing';
+import NumberEasing from "che-react-number-easing";
 import base64url from "base64url";
 
 export default class Address extends Component {
   constructor(props) {
     super();
-    if(!props.address) {
+    if (!props.address) {
       props.addressActions.fetchAndSubscribeToBlocks(1);
-      props.addressActions.fetchBalance(base64url.toBuffer(props.match.params.address));
+      props.addressActions.fetchBalance(
+        base64url.toBuffer(props.match.params.address)
+      );
     }
-    window.addEventListener('newBlock', () => {
-      props.addressActions.fetchBalance(base64url.toBuffer(props.match.params.address));
-    })
+    window.addEventListener("newBlock", () => {
+      props.addressActions.fetchBalance(
+        base64url.toBuffer(props.match.params.address)
+      );
+    });
   }
   render() {
-    if(this.props.address) {
-      const {address} = this.props;
-      return <>
-        <h1>Address</h1>
+    if (this.props.address) {
+      const { address } = this.props;
+      return (
+        <>
+          <h1>Address</h1>
 
-        <Table className="address">
-          <tbody>
-            <tr>
-              <th>Address</th>
-              <td><div>{this.props.match.params.address.toString("base64")}</div></td>
-            </tr>
-            <tr>
-              <th>Balance</th>
-              <td><div><NumberEasing
-  value={address.balance/10000}
-  precision={2}
-  trail={true}
-  speed={500}
-  ease='quintInOut' /></div></td>
-            </tr>
-          </tbody>
-        </Table>
-      </>
+          <Table className="address">
+            <tbody>
+              <tr>
+                <th>Address</th>
+                <td>
+                  <div>
+                    {this.props.match.params.address.toString("base64")}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>Balance</th>
+                <td>
+                  <div>
+                    <NumberEasing
+                      value={address.balance / 10000}
+                      precision={2}
+                      trail={true}
+                      speed={500}
+                      ease="quintInOut"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        </>
+      );
     } else {
       return null;
     }

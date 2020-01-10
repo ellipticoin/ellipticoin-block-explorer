@@ -40,7 +40,9 @@ body {
   transition: all 1s ease-in;
 }
 
-
+header a:hover  {
+  text-decoration: none;
+}
 header .btn {
   font-size: 22px;
   font-weight: bold;

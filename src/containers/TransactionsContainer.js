@@ -2,14 +2,12 @@ import Transactions from "../Transactions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as transactionActions from "../actions/actions";
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
-const transactionsSelector = state => state.transactionReducer
-const latestTransactions = createSelector(
-  transactionsSelector,
-  (transactions) => transactions.slice(0, 4),
-)
-
+const transactionsSelector = state => state.transactionReducer;
+const latestTransactions = createSelector(transactionsSelector, transactions =>
+  transactions.slice(0, 4)
+);
 
 function mapStateToProps(state) {
   return {
