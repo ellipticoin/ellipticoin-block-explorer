@@ -92,7 +92,7 @@ export default class Transaction extends Component {
                 <td>
                   <div>
                     {this.props.transaction.return_value
-                      ? this.props.transaction.return_value
+                      ? JSON.stringify(this.props.transaction.return_value)
                       : "Null"}
                   </div>
                 </td>
