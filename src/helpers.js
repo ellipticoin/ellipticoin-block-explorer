@@ -37,7 +37,7 @@ function sha256(message) {
 
 export function balanceKey(address) {
   let key = new Uint8Array(address.length + 1);
-  key.set(new Buffer([0]), 0);
+  key.set(new Buffer([1]), 0);
   key.set(address, 1);
   return key;
 }
@@ -59,7 +59,7 @@ function stringToBytes(string) {
 }
 
 function padRight(bytes, number) {
-  let padded = new Uint8Array(32);
+  let padded = new Uint8Array(255);
   padded.set(bytes);
   return padded;
 }
