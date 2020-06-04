@@ -51,7 +51,7 @@ export default class Transactions extends Component {
       >
         {this.props.latestTransactions.map((transaction, index) => (
           <CSSTransition
-            key={transaction.block_hash + transactionHash(transaction)}
+            key={index}
             timeout={500}
             classNames="fade"
           >

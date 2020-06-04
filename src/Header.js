@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import NetworkChooser from "./NetworkChooser";
 import React from "react";
 const Header = () => (
@@ -10,7 +9,6 @@ const Header = () => (
       </div>
     </a>
     <nav>
-      <Link to="/migrate_ether">Migrate Ether</Link>
       <a href="/">Transactions</a>
       <a href="/">Blocks</a>
       <input placeholder="Search" />

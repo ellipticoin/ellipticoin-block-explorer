@@ -8,7 +8,7 @@ const HOST =
     ? "https://davenport.ellipticoin.org"
     : "http://localhost:4461";
 const WEBSOCKET_HOST =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === "production" 
     ? "wss://davenport.ellipticoin.org"
     : "ws://localhost:4462";
 

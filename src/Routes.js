@@ -2,7 +2,6 @@ import App from "./App";
 import TransactionContainer from "./containers/TransactionContainer";
 import BlockContainer from "./containers/BlockContainer";
 import AddressContainer from "./containers/AddressContainer";
-import MigrateEther from "./MigrateEther";
 import React from "react";
 import { Route } from "react-router-dom";
 
@@ -10,7 +9,6 @@ const Routes = () => (
   <>
     <Route exact path="/" component={App} />
     <Route path="/addresses/:address" component={AddressContainer} />
-    <Route path="/migrate_ether" component={MigrateEther} />
     <Route
       path="/transactions/:transactionHash"
       component={TransactionContainer}
