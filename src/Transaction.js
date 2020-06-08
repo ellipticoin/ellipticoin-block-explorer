@@ -4,7 +4,6 @@ import AddressLink from "./AddressLink";
 import TransactionLink from "./TransactionLink";
 import Argument from "./Argument";
 import "./Transaction.css";
-import base64url from "base64url";
 import { contractName, contractCreatedBy, transactionHash } from "./helpers.js";
 
 export default class Transaction extends Component {

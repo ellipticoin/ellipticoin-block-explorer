@@ -21,8 +21,6 @@ const AddressLink = (address) => {
   }
 };
 
-const contractAddressToString = (address) => {};
-
 const addressToString = (address) => {
   if (address.compare(new Buffer(32)) === 0) {
     return "System";
