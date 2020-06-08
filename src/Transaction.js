@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import AddressLink from "./AddressLink";
 import TransactionLink from "./TransactionLink";
+import Argument from "./Argument";
 import "./Transaction.css";
 import base64url from "base64url";
 import { contractName, contractCreatedBy, transactionHash } from "./helpers.js";
@@ -34,7 +35,7 @@ export default class Transaction extends Component {
                 <th>Contract Address</th>
                 <td>
                   <div>
-                    {base64url(this.props.transaction.contract_address)}
+                    {AddressLink(this.props.transaction.contract_address)}
                   </div>
                 </td>
               </tr>
@@ -78,12 +79,7 @@ export default class Transaction extends Component {
                 <th>Arguments</th>
                 <td>
                   <div>
-                    {this.props.transaction.arguments
-                      .map(
-                        arg =>
-                          Buffer.isBuffer(arg) ? arg.toString("base64") : arg
-                      )
-                      .join(", ")}
+                    {this.props.transaction.arguments.map(Argument).join(", ")}
                   </div>
                 </td>
               </tr>
@@ -95,12 +91,6 @@ export default class Transaction extends Component {
                       ? JSON.stringify(this.props.transaction.return_value)
                       : "Null"}
                   </div>
-                </td>
-              </tr>
-              <tr>
-                <th>Return Code</th>
-                <td>
-                  <div>{this.props.transaction.return_code}</div>
                 </td>
               </tr>
             </tbody>

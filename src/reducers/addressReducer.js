@@ -5,7 +5,7 @@ export default function address(state = {}, action) {
     case RECEIVE_BALANCE:
       return {
         ...state,
-        ...action.balance
+        ...action.balance,
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Table } from "reactstrap";
@@ -15,14 +15,14 @@ export default class Transactions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rendered: false
+      rendered: false,
     };
   }
 
   componentDidMount = () => {
     this.setState({
       ...this.state,
-      rendered: true
+      rendered: true,
     });
   };
 
@@ -34,7 +34,7 @@ export default class Transactions extends Component {
             <tr>
               <th>Contract Name</th>
               <th>Function</th>
-              <th colSpan="3">Result</th>
+              <th colSpan="2">Result</th>
             </tr>
           </thead>
           {this.transactions()}
@@ -50,11 +50,7 @@ export default class Transactions extends Component {
         component="tbody"
       >
         {this.props.latestTransactions.map((transaction, index) => (
-          <CSSTransition
-            key={index}
-            timeout={500}
-            classNames="fade"
-          >
+          <CSSTransition key={index} timeout={500} classNames="fade">
             <tr>
               <td>
                 <div>{contractName(transaction.contract_address)}</div>
@@ -63,11 +59,10 @@ export default class Transactions extends Component {
                 <div>{transaction.function}</div>
               </td>
               <td>
-                <div>{transaction.return_code}</div>
-              </td>
-              <td>
                 <div>
-                  {transaction.return_code === 0 ? "Success" : "Failed"}
+                  {transaction.return_value.hasOwnProperty("Err")
+                    ? "Failed"
+                    : "Success"}
                 </div>
               </td>
               <td>

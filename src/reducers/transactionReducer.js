@@ -7,11 +7,11 @@ export default function transaction(state = initialState, action) {
       return [action.transaction, ...state];
     case RECEIVE_BLOCK:
       return [
-        ...action.block.transactions.map(transaction => {
+        ...action.block.transactions.map((transaction) => {
           transaction.block_hash = action.block.hash;
           return transaction;
         }),
-        ...state
+        ...state,
       ];
     default:
       return state;

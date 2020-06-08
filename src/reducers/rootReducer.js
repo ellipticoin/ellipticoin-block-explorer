@@ -6,7 +6,7 @@ import transactionReducer from "./transactionReducer";
 const rootReducer = combineReducers({
   addressReducer,
   blockReducer,
-  transactionReducer
+  transactionReducer,
 });
 
 export default rootReducer;

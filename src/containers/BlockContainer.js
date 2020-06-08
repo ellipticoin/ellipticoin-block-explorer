@@ -8,17 +8,14 @@ import base64url from "base64url";
 function mapStateToProps(state, props) {
   let hash = base64url.toBuffer(props.match.params.hash);
   return {
-    block: find(state.blockReducer, ["hash", hash])
+    block: find(state.blockReducer, ["hash", hash]),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    blockActions: bindActionCreators(blockActions, dispatch)
+    blockActions: bindActionCreators(blockActions, dispatch),
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Block);
+export default connect(mapStateToProps, mapDispatchToProps)(Block);

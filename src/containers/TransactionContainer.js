@@ -8,7 +8,7 @@ import base64url from "base64url";
 
 function mapStateToProps(state, props) {
   let hash = base64url.toBuffer(props.match.params.transactionHash);
-  let transaction = find(state.transactionReducer, transaction => {
+  let transaction = find(state.transactionReducer, (transaction) => {
     return transactionHash(transaction).toString() === hash.toString();
   });
 
@@ -17,11 +17,8 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    transactionActions: bindActionCreators(transactionActions, dispatch)
+    transactionActions: bindActionCreators(transactionActions, dispatch),
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Transaction);
+export default connect(mapStateToProps, mapDispatchToProps)(Transaction);

@@ -13,8 +13,8 @@ import { Container } from "reactstrap";
 
 WebFont.load({
   google: {
-    families: ["Open Sans"]
-  }
+    families: ["Open Sans"],
+  },
 });
 const store = configureStore();
 ReactDOM.render(

@@ -4,29 +4,26 @@ import { connect } from "react-redux";
 import * as blockActions from "../actions/actions";
 import { createSelector } from "reselect";
 
-const blocksSelector = state => state.blockReducer;
+const blocksSelector = (state) => state.blockReducer;
 
-const byKeyDesc = key => (a, b) => {
+const byKeyDesc = (key) => (a, b) => {
   return a[key] === b[key] ? 0 : a[key] > b[key] ? -1 : 1;
 };
 
-const latestBlocks = createSelector(blocksSelector, blocks =>
+const latestBlocks = createSelector(blocksSelector, (blocks) =>
   blocks.sort(byKeyDesc("number")).slice(0, 4)
 );
 
 function mapStateToProps(state) {
   return {
-    latestBlocks: latestBlocks(state)
+    latestBlocks: latestBlocks(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    blockActions: bindActionCreators(blockActions, dispatch)
+    blockActions: bindActionCreators(blockActions, dispatch),
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Blocks);
+export default connect(mapStateToProps, mapDispatchToProps)(Blocks);

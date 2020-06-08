@@ -20,19 +20,16 @@ body {
   padding: 10px;
 }
 
-
-
 .table td div {
   box-sizing: content-box;
-  padding: .75rem 10px;
+  padding: 0.75rem 10px;
 }
 
 .fade-enter div {
-  opacity: .5;
+  opacity: 0.5;
   overflow-y: hidden;
   max-height: 0;
 }
-
 
 .fade-enter-active div {
   opacity: 1;
@@ -40,7 +37,7 @@ body {
   transition: all 1s ease-in;
 }
 
-header a:hover  {
+header a:hover {
   text-decoration: none;
 }
 header .btn {
@@ -98,12 +95,12 @@ header nav {
 }
 
 @media screen and (max-width: 600px) {
-  header nav a{
+  header nav a {
     text-align: center;
   }
 }
 
-header nav  .dropdown {
+header nav .dropdown {
   margin-left: 12px;
 }
 
@@ -113,7 +110,8 @@ header nav  .dropdown {
   background-color: transparent;
 }
 
-.dropdown > button:hover, .show > .btn-secondary.dropdown-toggle  {
+.dropdown > button:hover,
+.show > .btn-secondary.dropdown-toggle {
   background-color: #fff;
   color: #0069ff;
 }
@@ -156,17 +154,18 @@ aside {
   background-color: #ddd;
 }
 
-
 .slide-down-enter td {
   padding: 0px 12px;
   transform: scaleY(0);
   line-height: 0;
 }
 
-.slide-down-enter-active, .slide-down-enter-done td {
+.slide-down-enter-active,
+.slide-down-enter-done td {
   border: 1;
   transform: scaleY(0);
-  transition: transform 500ms ease-in, line-height 500ms ease-in, padding 500ms ease-in;
+  transition: transform 500ms ease-in, line-height 500ms ease-in,
+    padding 500ms ease-in;
   position: relative;
 }
 
@@ -175,5 +174,6 @@ aside {
   transform: scaleY(1);
   font-size: inherit;
   line-height: inherit;
-  transition: transform 500ms ease-in, line-height 500ms ease-in, padding 500ms ease-in;
+  transition: transform 500ms ease-in, line-height 500ms ease-in,
+    padding 500ms ease-in;
 }

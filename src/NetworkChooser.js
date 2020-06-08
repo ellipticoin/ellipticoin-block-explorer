@@ -8,7 +8,7 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
 } from "reactstrap";
 
 export default class NetworkChooser extends Component {
@@ -18,19 +18,19 @@ export default class NetworkChooser extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-      modalOpen: false
+      modalOpen: false,
     };
   }
 
   toggle() {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
+    this.setState((prevState) => ({
+      dropdownOpen: !prevState.dropdownOpen,
     }));
   }
 
   toggleModal = () => {
     this.setState(({ modalOpen }) => ({
-      modalOpen: !modalOpen
+      modalOpen: !modalOpen,
     }));
   };
 

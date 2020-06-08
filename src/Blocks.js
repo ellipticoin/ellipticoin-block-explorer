@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Table } from "reactstrap";
@@ -11,14 +11,14 @@ export default class Blocks extends Component {
     super(props);
     this.props.blockActions.fetchAndSubscribeToBlocks(PREFETCH_COUNT);
     this.state = {
-      rendered: false
+      rendered: false,
     };
   }
 
   componentDidMount = () => {
     this.setState({
       ...this.state,
-      rendered: true
+      rendered: true,
     });
   };
 

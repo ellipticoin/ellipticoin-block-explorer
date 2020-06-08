@@ -6,25 +6,25 @@ import { toKey, balanceKey, bytesToNumber } from "../helpers.js";
 const HOST =
   process.env.NODE_ENV === "production"
     ? "https://davenport.ellipticoin.org"
-    : "http://localhost:4461";
+    : "http://localhost:8080";
 const WEBSOCKET_HOST =
-  process.env.NODE_ENV === "production" 
+  process.env.NODE_ENV === "production"
     ? "wss://davenport.ellipticoin.org"
-    : "ws://localhost:4462";
+    : "ws://localhost:81";
 
 const SYSTEM_ADDRESS = new Uint8Array(32);
 var newBlockEvent = new Event("newBlock");
 
 export function fetchBalance(address) {
-  return dispatch => {
+  return (dispatch) => {
     let key = toKey(SYSTEM_ADDRESS, "Ellipticoin", balanceKey(address));
     fetch(`${HOST}/memory/${base64url(key)}`).then(async (response, json) => {
       if (response.status === 200) {
         dispatch(
           receiveBalance({
             [address]: {
-              balance: bytesToNumber(decodeBytes(await response.arrayBuffer()))
-            }
+              balance: bytesToNumber(decodeBytes(await response.arrayBuffer())),
+            },
           })
         );
       } else {
@@ -35,7 +35,7 @@ export function fetchBalance(address) {
 }
 
 export function fetchBlock(hash) {
-  return dispatch => {
+  return (dispatch) => {
     fetch(`${HOST}/blocks/${hash}`).then(async (response, json) => {
       if (response.status === 200) {
         dispatch(receiveBlock(decodeBytes(await response.arrayBuffer())));
@@ -47,7 +47,7 @@ export function fetchBlock(hash) {
 }
 
 export function fetchTransaction(transactionHash) {
-  return dispatch => {
+  return (dispatch) => {
     fetch(`${HOST}/transactions/${transactionHash}`).then(
       async (response, json) => {
         if (response.status === 200) {
@@ -65,28 +65,28 @@ export function fetchTransaction(transactionHash) {
 export function receiveBalance(balance) {
   return {
     type: types.RECEIVE_BALANCE,
-    balance
+    balance,
   };
 }
 
 export function receiveBlock(block) {
   return {
     type: types.RECEIVE_BLOCK,
-    block
+    block,
   };
 }
 
 export function receiveTransaction(transaction) {
   return {
     type: types.RECEIVE_TRANSACTION,
-    transaction
+    transaction,
   };
 }
 
 export function fetchBlocksSuccess(json) {
   return {
     type: types.RECEIVE_BLOCK,
-    block: json.blocks
+    block: json.blocks,
   };
 }
 
@@ -98,11 +98,11 @@ export function fetchTransactionError(error) {
   console.log(error);
 }
 export function fetchAndSubscribeToBlocks(limit) {
-  return dispatch => {
+  return (dispatch) => {
     var queryParams = queryString.stringify({ limit });
     fetch(`${HOST}/blocks?${queryParams}`).then(async (response, json) => {
       if (response.status === 200) {
-        decodeBytes(await response.arrayBuffer()).forEach(block =>
+        decodeBytes(await response.arrayBuffer()).forEach((block) =>
           dispatch(receiveBlock(block))
         );
         subscribeToBlocks(dispatch);
@@ -139,4 +139,4 @@ export function subscribeToBlocks(dispatch) {
   // })), 1000)
 }
 
-const decodeBytes = bytes => cbor.decode(Buffer.from(bytes));
+const decodeBytes = (bytes) => cbor.decode(Buffer.from(bytes));

@@ -29,10 +29,7 @@ export function objectHash(object) {
 }
 
 function sha256(message) {
-  return crypto
-    .createHash("sha256")
-    .update(message, "utf8")
-    .digest();
+  return crypto.createHash("sha256").update(message, "utf8").digest();
 }
 
 export function balanceKey(address) {
@@ -50,7 +47,7 @@ export function toKey(address, contractName, key) {
   return Buffer.concat([
     Buffer.from(address),
     Buffer.from(padRight(stringToBytes(contractName))),
-    Buffer.from(key)
+    Buffer.from(key),
   ]);
 }
 
