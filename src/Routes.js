@@ -8,7 +8,7 @@ import { Route } from "react-router-dom";
 const Routes = () => (
   <>
     <Route exact path="/" component={App} />
-    <Route path="/addresses/:address" component={AddressContainer} />
+    <Route path="/addresses/:address+" component={AddressContainer} />
     <Route
       path="/transactions/:transactionHash"
       component={TransactionContainer}

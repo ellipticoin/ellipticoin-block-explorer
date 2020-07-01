@@ -60,7 +60,8 @@ export default class Transactions extends Component {
               </td>
               <td>
                 <div>
-                  {transaction.return_value && transaction.return_value.hasOwnProperty("Err")
+                  {transaction.return_value &&
+                  transaction.return_value.hasOwnProperty("Err")
                     ? "Failed"
                     : "Success"}
                 </div>

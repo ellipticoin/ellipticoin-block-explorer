@@ -2,3 +2,4 @@ export const FETCH_BLOCKS = "FETCH_BLOCKS";
 export const RECEIVE_BLOCK = "RECEIVE_BLOCK";
 export const RECEIVE_TRANSACTION = "RECEIVE_TRANSACTION";
 export const RECEIVE_BALANCE = "RECEIVE_BALANCE";
+export const ERROR = "ERROR";

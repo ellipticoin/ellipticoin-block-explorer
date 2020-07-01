@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import "./Address.css";
 import NumberEasing from "che-react-number-easing";
-import base64url from "base64url";
+import { pathToAddress } from "./helpers";
 
 export default class Address extends Component {
   constructor(props) {
@@ -10,12 +10,12 @@ export default class Address extends Component {
     if (!props.address) {
       props.addressActions.fetchAndSubscribeToBlocks(1);
       props.addressActions.fetchBalance(
-        base64url.toBuffer(props.match.params.address)
+        pathToAddress(props.match.params.address)
       );
     }
     window.addEventListener("newBlock", () => {
       props.addressActions.fetchBalance(
-        base64url.toBuffer(props.match.params.address)
+        pathToAddress(props.match.params.address)
       );
     });
   }
@@ -31,9 +31,7 @@ export default class Address extends Component {
               <tr>
                 <th>Address</th>
                 <td>
-                  <div>
-                    {this.props.match.params.address.toString("base64")}
-                  </div>
+                  <div>{this.props.match.params.address}</div>
                 </td>
               </tr>
               <tr>

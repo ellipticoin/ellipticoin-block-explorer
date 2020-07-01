@@ -4,7 +4,12 @@ import AddressLink from "./AddressLink";
 import TransactionLink from "./TransactionLink";
 import Argument from "./Argument";
 import "./Transaction.css";
-import { contractName, contractCreatedBy, transactionHash } from "./helpers.js";
+import {
+  contractName,
+  contractCreatedBy,
+  transactionHash,
+  networkIdentifier,
+} from "./helpers.js";
 
 export default class Transaction extends Component {
   constructor(props) {
@@ -16,6 +21,14 @@ export default class Transaction extends Component {
     }
   }
   render() {
+    console.log(this.props.error);
+    if (this.props.error === "Not Found") {
+      return (
+        <div>
+          <h1>Transaction Not Found</h1>
+        </div>
+      );
+    }
     if (this.props.transaction) {
       return (
         <>
@@ -27,6 +40,15 @@ export default class Transaction extends Component {
                 <td>
                   <div>
                     {TransactionLink(transactionHash(this.props.transaction))}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>Network ID</th>
+                <td>
+                  <div>
+                    {networkIdentifier(this.props.transaction.network_id)} (
+                    {this.props.transaction.network_id})
                   </div>
                 </td>
               </tr>

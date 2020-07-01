@@ -12,7 +12,10 @@ function mapStateToProps(state, props) {
     return transactionHash(transaction).toString() === hash.toString();
   });
 
-  return { transaction };
+  return {
+    error: state.errorReducer,
+    transaction,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

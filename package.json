@@ -10,6 +10,7 @@
     "bootstrap": "^4.1.3",
     "borc": "^2.1.1",
     "che-react-number-easing": "^0.1.2",
+    "ec-client": "0.0.17",
     "long": "^4.0.0",
     "query-string": "^6.1.0",
     "react": "^16.12.0",

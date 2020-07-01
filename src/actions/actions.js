@@ -1,8 +1,19 @@
 import * as types from "./actionTypes";
 import cbor from "borc";
 import queryString from "query-string";
-import base64url from "base64url";
-import { toKey, balanceKey, bytesToNumber } from "../helpers.js";
+import { bytesToNumber } from "../helpers.js";
+import { Client as ECClient } from "ec-client";
+
+const ellipticoin =
+  process.env.NODE_ENV === "production"
+    ? new ECClient({
+        privateKey: null,
+      })
+    : new ECClient({
+        privateKey: null,
+        bootnodes: ["http://localhost:8080"],
+      });
+
 const HOST =
   process.env.NODE_ENV === "production"
     ? "https://davenport.ellipticoin.org"
@@ -12,25 +23,23 @@ const WEBSOCKET_HOST =
     ? "wss://davenport.ellipticoin.org"
     : "ws://localhost:81";
 
-const SYSTEM_ADDRESS = new Uint8Array(32);
 var newBlockEvent = new Event("newBlock");
 
 export function fetchBalance(address) {
-  return (dispatch) => {
-    let key = toKey(SYSTEM_ADDRESS, "Ellipticoin", balanceKey(address));
-    fetch(`${HOST}/memory/${base64url(key)}`).then(async (response, json) => {
-      if (response.status === 200) {
-        dispatch(
-          receiveBalance({
-            [address]: {
-              balance: bytesToNumber(decodeBytes(await response.arrayBuffer())),
-            },
-          })
-        );
-      } else {
-        throw Error("Failed to fetch block");
-      }
-    });
+  return async (dispatch) => {
+    const balanceBytes = await ellipticoin.getMemory(
+      new Buffer(32),
+      "Ellipticoin",
+      Buffer.concat([new Buffer([1]), Buffer.from(address)])
+    );
+    console.log(balanceBytes);
+    dispatch(
+      receiveBalance({
+        [address]: {
+          balance: bytesToNumber(balanceBytes),
+        },
+      })
+    );
   };
 }
 
@@ -55,7 +64,7 @@ export function fetchTransaction(transactionHash) {
             receiveTransaction(decodeBytes(await response.arrayBuffer()))
           );
         } else {
-          dispatch(fetchTransactionError());
+          dispatch(fetchTransactionError(response.statusText));
         }
       }
     );
@@ -91,11 +100,17 @@ export function fetchBlocksSuccess(json) {
 }
 
 export function fetchBlocksError(error) {
-  console.log(error);
+  return {
+    type: types.ERROR,
+    error,
+  };
 }
 
 export function fetchTransactionError(error) {
-  console.log(error);
+  return {
+    type: types.ERROR,
+    error,
+  };
 }
 export function fetchAndSubscribeToBlocks(limit) {
   return (dispatch) => {
@@ -127,16 +142,6 @@ export function subscribeToBlocks(dispatch) {
   // https://stackoverflow.com/a/46112000/1356670
   // https://ninenines.eu/docs/en/cowboy/2.4/guide/ws_handlers/#_keeping_the_connection_alive
   setInterval(() => blocksSocket.send(new ArrayBuffer([])), 30000);
-  //     window.count = 13231
-  //     setInterval(() => dispatch(receiveBlock({
-  //       "winner": new Buffer([40,175,84,97,202,214,131,4,27,211,102,104,81,242,192,102,39,112,136,165]),
-  //       "transactions":[],
-  //       "total_burned": 0,
-  //       "parent_hash": new Buffer([72,176,130,3,132,140,143,209,145,29,216,137,206,46,65,50,46,188,13,110,85,1,162,253,164,237,195,46,118,120,203,44]),
-  //       "number": window.count++,
-  //       "changeset_hash": new Buffer([227,176,196,66,152,252,28,20,154,251,244,200,153,111,185,36,39,174,65,228,100,155,147,76,164,149,153,27,120,82,184,85]),
-  //         "block_hash": new Buffer([48,8,9,0,153,121,27,81,40,66,241,117,193,69,22,109,24,95,206,1,20,75,148,175,114,133,237,57,103,81,28,87]),
-  // })), 1000)
 }
 
 const decodeBytes = (bytes) => cbor.decode(Buffer.from(bytes));
