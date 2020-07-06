@@ -17,6 +17,7 @@ const latestBlocks = createSelector(blocksSelector, (blocks) =>
 function mapStateToProps(state) {
   return {
     latestBlocks: latestBlocks(state),
+    blocks: state.blockReducer,
   };
 }
 

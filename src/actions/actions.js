@@ -1,11 +1,9 @@
 import * as types from "./actionTypes";
 import cbor from "borc";
 import queryString from "query-string";
-import { bytesToNumber } from "../helpers.js";
-import { Client as ECClient } from "ec-client";
+import { SYSTEM_ADDRESS, Token, tokenId, Client as ECClient } from "ec-client";
 
-const ellipticoin =
-  process.env.NODE_ENV === "production"
+const ellipticoin =   process.env.NODE_ENV === "production"
     ? new ECClient({
         privateKey: null,
       })
@@ -14,60 +12,36 @@ const ellipticoin =
         bootnodes: ["http://localhost:8080"],
       });
 
-const HOST =
-  process.env.NODE_ENV === "production"
-    ? "https://davenport.ellipticoin.org"
-    : "http://localhost:8080";
-const WEBSOCKET_HOST =
-  process.env.NODE_ENV === "production"
-    ? "wss://davenport.ellipticoin.org"
-    : "ws://localhost:81";
-
-var newBlockEvent = new Event("newBlock");
 
 export function fetchBalance(address) {
   return async (dispatch) => {
-    const balanceBytes = await ellipticoin.getMemory(
-      new Buffer(32),
-      "Ellipticoin",
-      Buffer.concat([new Buffer([1]), Buffer.from(address)])
-    );
-    console.log(balanceBytes);
+          const tokenContract = new Token(ellipticoin, [SYSTEM_ADDRESS, Buffer.from("Ellipticoin")], tokenId("ELC"));
+          const balance = await tokenContract.getBalance(address);
     dispatch(
       receiveBalance({
         [address]: {
-          balance: bytesToNumber(balanceBytes),
+          balance: balance,
         },
       })
     );
   };
 }
 
-export function fetchBlock(hash) {
-  return (dispatch) => {
-    fetch(`${HOST}/blocks/${hash}`).then(async (response, json) => {
-      if (response.status === 200) {
-        dispatch(receiveBlock(decodeBytes(await response.arrayBuffer())));
-      } else {
-        throw Error("Failed to fetch block");
-      }
-    });
-  };
-}
-
 export function fetchTransaction(transactionHash) {
-  return (dispatch) => {
-    fetch(`${HOST}/transactions/${transactionHash}`).then(
-      async (response, json) => {
-        if (response.status === 200) {
-          dispatch(
-            receiveTransaction(decodeBytes(await response.arrayBuffer()))
-          );
-        } else {
-          dispatch(fetchTransactionError(response.statusText));
-        }
-      }
-    );
+  return async (dispatch) => {
+    let t = await ellipticoin.getTransaction(transactionHash)
+    console.log(t)
+    // fetch(`${HOST}/transactions/${transactionHash}`).then(
+    //   async (response, json) => {
+    //     if (response.status === 200) {
+    //       dispatch(
+    //         receiveTransaction(decodeBytes(await response.arrayBuffer()))
+    //       );
+    //     } else {
+    //       dispatch(fetchTransactionError(response.statusText));
+    //     }
+    //   }
+    // );
   };
 }
 
@@ -113,35 +87,20 @@ export function fetchTransactionError(error) {
   };
 }
 export function fetchAndSubscribeToBlocks(limit) {
-  return (dispatch) => {
-    var queryParams = queryString.stringify({ limit });
-    fetch(`${HOST}/blocks?${queryParams}`).then(async (response, json) => {
-      if (response.status === 200) {
-        decodeBytes(await response.arrayBuffer()).forEach((block) =>
+  return async (dispatch) => {
+    let blocks = await ellipticoin.getBlocks({limit})
+    blocks.forEach((block) => {
           dispatch(receiveBlock(block))
-        );
-        subscribeToBlocks(dispatch);
-      } else {
-        throw Error(fetchBlocksError());
-      }
-    });
+    })
+    subscribeToBlocks(dispatch);
   };
 }
+
 export function subscribeToBlocks(dispatch) {
-  var blocksSocket = new WebSocket(`${WEBSOCKET_HOST}/websocket`);
-  blocksSocket.binaryType = "arraybuffer";
-  blocksSocket.onerror = console.log;
-  blocksSocket.onmessage = ({ data }) => {
-    window.dispatchEvent(newBlockEvent);
-    dispatch(receiveBlock(decodeBytes(data)));
-  };
-  blocksSocket.onclose = ({ code }) =>
-    console.log(`WebSocket disconnect code: ${code}`);
-
-  // Heartbeat
-  // https://stackoverflow.com/a/46112000/1356670
-  // https://ninenines.eu/docs/en/cowboy/2.4/guide/ws_handlers/#_keeping_the_connection_alive
-  setInterval(() => blocksSocket.send(new ArrayBuffer([])), 30000);
+  ellipticoin.addBlockListener(async (blockHash) => {
+    let block = await ellipticoin.getBlock(blockHash)
+    
+    dispatch(receiveBlock(block));
+    
+  })
 }
-
-const decodeBytes = (bytes) => cbor.decode(Buffer.from(bytes));

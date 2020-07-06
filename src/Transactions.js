@@ -29,7 +29,7 @@ export default class Transactions extends Component {
   render() {
     return (
       <>
-        <Table>
+        <Table className="sliding-table">
           <thead>
             <tr>
               <th>Contract Name</th>

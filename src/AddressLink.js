@@ -22,7 +22,7 @@ const AddressLink = (address) => {
 };
 
 const addressToString = (address) => {
-  if (address.compare(new Buffer(32)) === 0) {
+  if (address.compare(Buffer.alloc(32)) === 0) {
     return "System";
   } else {
     return base64url(address);

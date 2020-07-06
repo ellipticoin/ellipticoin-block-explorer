@@ -2,3 +2,19 @@ td.block-number {
   width: 145px;
   text-align: right;
 }
+
+
+td.block-winner {
+}
+
+td.block-winner div{
+  width: 600px;
+}
+
+.sliding-table td div {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sliding-table td, th {
+  border-top: none;
+}

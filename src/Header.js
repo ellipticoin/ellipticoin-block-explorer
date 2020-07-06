@@ -1,4 +1,3 @@
-import NetworkChooser from "./NetworkChooser";
 import React from "react";
 const Header = () => (
   <header>
@@ -12,7 +11,6 @@ const Header = () => (
       <a href="/">Transactions</a>
       <a href="/">Blocks</a>
       <input placeholder="Search" />
-      <NetworkChooser />
     </nav>
   </header>
 );

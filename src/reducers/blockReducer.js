@@ -6,7 +6,16 @@ export default function block(state = initialState, action) {
     case FETCH_BLOCKS:
       return action;
     case RECEIVE_BLOCK:
-      return [action.block, ...state];
+      if (state.map((b) => b.number).includes(action.block.number)) {
+        return state;
+      }
+
+      return [
+        action.block,
+        ...state.filter((_, i) => {
+          return i !== state.length - 1 || state.length < 4;
+        }),
+      ];
     default:
       return state;
   }

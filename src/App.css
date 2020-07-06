@@ -154,26 +154,3 @@ aside {
   background-color: #ddd;
 }
 
-.slide-down-enter td {
-  padding: 0px 12px;
-  transform: scaleY(0);
-  line-height: 0;
-}
-
-.slide-down-enter-active,
-.slide-down-enter-done td {
-  border: 1;
-  transform: scaleY(0);
-  transition: transform 500ms ease-in, line-height 500ms ease-in,
-    padding 500ms ease-in;
-  position: relative;
-}
-
-.slide-down-enter-done td {
-  padding: 12px 12px;
-  transform: scaleY(1);
-  font-size: inherit;
-  line-height: inherit;
-  transition: transform 500ms ease-in, line-height 500ms ease-in,
-    padding 500ms ease-in;
-}

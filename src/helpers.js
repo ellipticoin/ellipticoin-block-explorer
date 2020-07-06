@@ -55,7 +55,7 @@ function sha256(message) {
 
 export function balanceKey(address) {
   let key = new Uint8Array(address.length + 1);
-  key.set(new Buffer([1]), 0);
+  key.set(Buffer.from([1]), 0);
   key.set(address, 1);
   return key;
 }
@@ -73,7 +73,7 @@ export function toKey(address, contractName, key) {
 }
 
 function stringToBytes(string) {
-  return new Buffer(string, "utf8");
+  return Buffer.from(string, "utf8");
 }
 
 function padRight(bytes, number) {
